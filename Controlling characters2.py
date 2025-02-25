@@ -14,6 +14,10 @@ sw,sh=55,40
 redship=pygame.transform.scale(redspaceship,(sw,sh))
 redship1=pygame.transform.rotate(redship,90)
 yellowspaceship=pygame.image.load("spaceship2.png")
+yellowspaceship=pygame.image.load("spaceship1.png")
+sw,sh=55,40
+yellowship=pygame.transform.scale(yellowspaceship,(sw,sh))
+yellowship1=pygame.transform.rotate(yellowship,90)
 pygame.display.update()
 def draw(red,yellow):
     screen.blit(space,(0,0))
