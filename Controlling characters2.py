@@ -1,53 +1,34 @@
-import pygame,sys,time
+import pygame,sys
+
+import pygame.imageext
 pygame.init()
-screen=pygame.display.set_mode((600,600))
-pygame.display.set_caption("Controlling characters 2")
+WIDTH,HEIGHT=900,500
+screen=pygame.display.set_mode((WIDTH,HEIGHT))
+pygame.display.set_caption("Space invasion")
 screen.fill("white")
-player=pygame.image.load("ghost.png")
-backround=pygame.image.load("halloweenbg.jpg")
-sc=pygame.transform.scale(backround,(600,600))
-playerx=300
-playery=300
-keys=[False,False,False,False]
+spaceimg=pygame.image.load("starsbg.png")
+space=pygame.transform.scale(spaceimg,(WIDTH,HEIGHT))
+border=pygame.Rect(WIDTH//2-5,0,10,HEIGHT)
+redspaceship=pygame.image.load("spaceship1.png")
+sw,sh=55,40
+redship=pygame.transform.scale(redspaceship,(sw,sh))
+redship1=pygame.transform.rotate(redship,90)
+yellowspaceship=pygame.image.load("spaceship2.png")
 pygame.display.update()
-while playery < 600:
-    screen.blit(sc,(0,0))
-    screen.blit(player,(playerx,playery))
+def draw(red,yellow):
+    screen.blit(space,(0,0))
+    pygame.draw.rect(screen,"black",border)
+    screen.blit(redship1,(red.x,red.y))
+    screen.blit(yellowspaceship,(yellow.x,yellow.y))
     pygame.display.update()
-    for event in pygame.event.get():
-        if event.type==pygame.QUIT:
-            sys.exit()
-        if event.type==pygame.KEYDOWN:
-            if event.key==pygame.K_UP:
-                keys[0]=True
-            elif event.key==pygame.K_DOWN:
-                keys[1]=True
-            elif event.key==pygame.K_LEFT:
-                keys[2]=True
-            elif event.key==pygame.K_RIGHT:
-                keys[3]=True
-        if event.type==pygame.KEYUP:
-            if event.key==pygame.K_UP:
-                keys[0]=False
-            elif event.key==pygame.K_DOWN:
-                keys[1]=False
-            elif event.key==pygame.K_LEFT:
-                keys[2]=False
-            elif event.key==pygame.K_RIGHT:
-                keys[3]=False
-    if keys[0]:
-        if playery > 0:
-            playery-=7
-    elif keys[1]:
-        if playery < 350:
-            playery+=7
-    if keys[2]:
-        if playerx > 0:
-            playerx-=7
-    elif keys[3]:
-        if playerx < 450:
-            playerx+=7
-       
-    playery+=3
-    time.sleep(0.05)
-print("Game Over!")
+def main():
+    red=pygame.Rect(100,250,sw,sh)
+    yellow=pygame.Rect(800,250,sw,sh)
+    draw(red,yellow)
+    pygame.display.update()
+    while True:
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                sys.exit()
+if __name__=="__main__":
+    main()
